@@ -243,6 +243,280 @@ def deleteAllChildDevices() {
     }
 }
 
+//================ Component Commands======================
+
+def componentOn(ch) {
+    parent.componentOn(ch)
+}
+
+def componentOff(ch) {
+    parent.componentOff(ch)
+}
+
+def componentSetLevel(ch, level, transition=1) {
+    parent.componentSetLevel(ch, level, transition)
+}
+
+def componentSetColor(ch, color, transition=1) {
+    parent.componentSetColor(ch, color, transition)
+}
+
+def componentSetColorTemperature(ch, colortemperature, level, transition=1) {
+    parent.componentSetColorTemperature(ch, colortemperature, level, transition)
+}
+
+def componentSetHue(ch, hue, transition=1) {
+    parent.componentSetHue(ch, hue, transition)
+}
+
+def componentSetSaturation(ch, saturation, transition=1) {
+    parent.componentSetSaturation(ch, saturation, transition)
+}
+
+def componentSetEffect(ch, effectNumber) {
+    parent.componentSetEffect(ch, effectNumber)
+}
+
+def componentSetNextEffect(ch) { log.warn("setNextEffect not implemented") }
+def componentSetPreviousEffect(ch) { log.warn("setPreviousEffect not implemented") }
+
+def componentSetSpeed(ch, speed) {
+    parent.componentSetSpeed(ch, speed)
+}
+
+def componentCycleSpeed(ch) {
+    parent.componentCycleSpeed(ch)
+}
+
+void componentClose(ch) {
+    parent.componentClose(ch)
+}
+
+void componentOpen(ch) {
+    parent.componentOpen(ch)
+}
+
+void componentSetPosition(ch, pos) {
+    parent.componentSetPosition(ch, pos)
+}
+
+void componentCloseTilt(ch) {
+    parent.componentCloseTilt(ch)
+}
+
+void componentOpenTilt(ch) {
+    parent.componentOpenTilt(ch)
+}
+
+void componentSetTiltLevel(ch, tilt) {
+    parent.componentSetTiltLevel(ch, tilt)
+}
+
+void componentStartPositionChange(ch, dir) {
+    parent.componentStartPositionChange(ch, dir)
+}
+
+void componentStopPositionChange(ch) {
+    parent.componentStopPositionChange(ch)
+}
+
+void componentStartTiltChange(ch, dir) {
+    parent.componentStartTiltChange(ch, dir)
+}
+
+void componentStopTiltChange(ch) {
+    parent.componentStopTiltChange(ch)
+}
+
+void componentLock(ch) {
+    parent.componentLock(ch)
+}
+
+void componentUnlock(ch) {
+    parent.componentUnlock(ch)
+}
+
+def deleteCode(ch, codeposition) { log.warn("deleteCode not implemented") }
+def getCodes(ch) { log.warn("getCodes not implemented") }
+def setCode(ch, codeposition, pincode, name) { log.warn("setCode not implemented") }
+def setCodeLength(ch, pincodelength) { log.warn("setCodeLength not implemented") }
+
+def componentPush(ch, nb) {
+    parent.componentPush(ch, nb)
+}
+
+def componentSetNumber(ch, newValue) {
+    parent.componentSetNumber(ch, newValue)
+}
+
+def componentSetVariable(ch, newValue) {
+    parent.componentSetVariable(ch, newValue)
+}
+        
 def componentRefresh(ch) {
     parent.componentRefresh(ch)
+}
+
+def componentSetThermostatMode(ch, thermostatmode) {
+    parent.componentSetThermostatMode(ch, thermostatmode)
+}
+
+def componentSetCoolingSetpoint(ch, temperature) {
+    parent.componentSetCoolingSetpoint(ch, temperature)
+}
+
+def componentSetHeatingSetpoint(ch, temperature) {
+    parent.componentSetHeatingSetpoint(ch, temperature)
+}
+
+def componentSetThermostatFanMode(ch, fanmode) {
+    parent.componentSetThermostatFanMode(ch, fanmode)
+}
+
+def componentSetPreset(ch, preset) { 
+    parent.componentSetPreset(ch, preset)
+}
+	
+def componentSetHumidifierMode(ch, mode) {
+    parent.componentSetHumidifierMode(ch, mode)
+}
+
+def componentSelectOption(ch, option) {
+    parent.componentSelectOption(ch, option)
+}
+
+def componentSetHumidity(ch, target) {
+    parent.componentSetHumidity(ch, target)
+}
+
+def componentAuto(ch) {
+    componentSetThermostatMode(ch, "auto")
+}
+
+def componentCool(ch) {
+    componentSetThermostatMode(ch, "cool")
+}
+
+def componentEmergencyHeat(ch) {
+    componentSetThermostatMode(ch, "emergencyHeat")
+}
+
+def componentFanAuto(ch) {
+    componentSetThermostatMode(ch, "auto")
+}
+
+def componentFanCirculate(ch) {
+    componentSetThermostatFanMode(ch, "circulate")
+}
+
+def componentFanOn(ch) {
+    componentSetThermostatFanMode(ch, "on")
+}
+
+def componentHeat(ch) {
+    componentSetThermostatMode(ch, "heat")
+}
+
+def componentStartLevelChange(ch) {
+    log.warn("Start level change not supported")
+}
+
+def componentStopLevelChange(ch) {
+    log.warn("Stop level change not supported")
+}
+
+void componentCleanSpot(ch) {
+    parent.componentCleanSpot(ch)
+}
+
+void componentLocate(ch) {
+    parent.componentLocate(ch)
+}
+
+void componentPause(ch) {
+    parent.componentPause(ch)
+}
+
+void componentReturnToBase(ch) {
+    parent.componentReturnToBase(ch)
+}
+
+void componentSetFanSpeed(ch, speed) {
+    parent.componentSetFanSpeed(ch, speed)
+}
+
+void componentStart(ch) {
+    parent.componentStart(ch)
+}
+
+void componentStop(ch) {
+    parent.componentStop(ch)
+}
+
+void componentMute(ch) {
+    parent.componentMute(ch)
+}
+
+void componentUnmute(ch) {
+    parent.componentUnmute(ch)
+}
+
+void componentVolumeUp(ch) {
+    parent.componentVolumeUp(ch)
+}
+
+void componentVolumeDown(ch) {
+    parent.componentVolumeDown(ch)
+}
+
+void componentSetVolume(ch, volume) {
+    parent.componentSetVolume(ch, volume)
+}
+
+void componentSetInputSource(ch, source) {
+    parent.componentSetInputSource(ch, source)
+}
+
+void componentPauseMedia(ch) {
+    parent.componentPauseMedia(ch)
+}
+
+void componentPlay(ch) {
+    parent.componentPlay(ch)
+}
+
+void componentStopMedia(ch) {
+    parent.componentStopMedia(ch)
+}
+
+void componentPlayText(ch, text) {
+}
+
+void componentPlayTrack(ch, mediaType, trackUri) {
+    parent.componentPlayTrack(ch, mediaType, trackUri)
+}
+
+void componentPreviousTrack(ch) {
+    parent.componentPreviousTrack(ch)
+}
+
+void componentNextTrack(ch) {
+    parent.componentNextTrack(ch)
+}
+
+void componentShuffle(ch, value) {
+    parent.componentShuffle(ch, value)
+}
+
+void componentRepeat(ch, value) {
+    parent.componentRepeat(ch, value)
+}
+
+void componentRestoreTrack(ch, trackUri) {
+}
+
+void componentResumeTrack(ch, trackUri) {
+}
+
+void componentSetTrack(ch, trackUri){
 }
