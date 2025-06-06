@@ -11,7 +11,7 @@
 * Features List:
 *
 * Licensing:
-* Copyright 2021 tomw
+* Copyright 2021 Yves Mercier.
 * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
 * in compliance with the License. You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed
@@ -19,259 +19,230 @@
 * for the specific language governing permissions and limitations under the License.
 *
 * Version Control:
-* 0.1.22     2021-02-24 tomw               Optional configuration app to selectively filter out Home Assistant devices
-* 0.1.23     2021-02-25 Dan Ogorchock      Switched logic from Exclude to Include to make more intuitive.  Sorted Device List.
-* 0.1.32     2021-09-27 kaimyn             Add option to use HTTPS support in configuration app
-* 0.1.45     2022-06-06 tomw               Added confirmation step before completing select/de-select all
-* 0.1.46     2022-07-04 tomw               Advanced configuration - manual add/remove of devices; option to disable filtering; unused child cleanup
-* 0.1.52     2023-02-02 tomw               UI improvements for app usability
-* 0.1.53     2023-02-19 tomw               Allow multiple instances of HADB app to be installed
-* 0.1.58     2023-08-02 Yves Mercier       Add support for number domain
-* 0.1.62     2023-08-02 Yves Mercier       Add support for input_number domain
-* 0.1.63     2024-01-11 tomw               Remove entityList state
-* 2.0        2024-01-20 Yves Mercier       Introduce entity subscription model
-* 2.3        2024-03-26 Yves Mercier       Add support for buttons
-* 2.5        2024-05-08 Yves Mercier       Add support for valves
-* 2.6        2024-05-31 Yves Mercier       Add support for humidifiers
-* 2.7        2024-08-13 Yves Mercier       Add support for events, remove HA states response from debug log
-* 2.10       2024-11-12 Yves Mercier       Add support for text and vacuums
-* 2.11       2024-11-30 Yves Mercier       Add limited support for media_player entity
-* 2.12       2024-12-15 Yves Mercier       Add support for select entity
-* 2.15       2024-01-17 Yves Mercier       Fix "Toggle all On/Off" included as an entity
+* 0.1.0  2021-02-05 Yves Mercier       Orinal version
+* 0.1.1  2021-02-06 Dan Ogorchock      Added basic support for simple "Light" devices from Home Assistant using Hubitat Generic Component Dimmer driver
+* 0.1.2  2021-02-06 tomw               Added handling for some binary_sensor subtypes based on device_class
+* 0.1.3  2021-02-06 Dan Ogorchock      Bug Fixes 
+* 0.1.4  2021-02-06 Yves Mercier       Added version number and import URL
+* 0.1.5  2021-02-06 Dan Ogorchock      Added support for Temperature and Humidity Sensors
+* 0.1.6  2021-02-06 Dan Ogorchock      Corrected open/closed for HA door events
+* 0.1.7  2021-02-07 Dan Ogorchock      Corrected open/closed for HA window, garage_door, and opening per @smarthomeprimer
+* 0.1.8  2021-02-07 Dan Ogorchock      Removed temperature and humidity workaround for missing device_class on some HA sensors.  
+*                                      This can be corrected on the HA side via the Customize entity feature to add the missing device_class.
+* 0.1.9  2021-02-07 tomw               More generic handling for "sensor" device_classes.  Added voltage device_class to "sensor".
+* 0.1.10 2021-02-07 Dan Ogorchock      Refactored the translation from HA to HE to simplify the overall design
+* 0.1.11 2021-02-07 Dan Ogorchock      Completed refactoring of Dimmer Switch support
+* 0.1.12 2021-02-08 Dan Ogorchock      Fixed typo in log.info statement
+* 0.1.13 2021-02-08 tomw               Added "community" namespace support for component drivers.  Added Pressure and Illuminance.
+* 0.1.14 2021-02-10 Dan Ogorchock      Added support for Fan devices (used Lutron Fan Controller as test device.)
+* 0.1.15 2021-02-13 tomw               Adjust websocket status handling to reconnect on both close and error conditions.
+* 0.1.16 2021-02-14 tomw               Revert 0.1.15
+* 0.1.17 2021-02-14 Dan Ogorchock      Improved webSocket reconnect logic
+* 0.1.18 2021-02-14 tomw               Avoid reconnect loop on initialize
+* 0.1.19 2021-02-16 Yves Mercier       Added Refresh handler
+* 0.1.20 2021-02-16 Yves mercier       Refactored webSocketStatus
+* 0.1.21 2021-02-22 Yves mercier       Reinstated CloseConnection command. Added connection status on device page.
+* 0.1.22 2021-02-24 tomw               Changes to support optional device filtering.  For use with haDeviceBridgeConfiguration.groovy.
+* 0.1.23 2021-02-25 Dan Ogorchock      Switched from Exclude List to Include List
+* 0.1.24 2021-03-07 Yves Mercier       Added device label in event description
+* 0.1.25 2021-03-18 Dan Ogorchock      Updated for recent Hass Fan handling changes (use percentages to set speeds instead of deprecated speed names)
+* 0.1.26 2021-04-02 DongHwan Suh       Added partial support for Color temperature, RGB, RGBW lights
+*                                      (Manually updating the device type to the corresponding one is required in Hubitat. Only statuses of level and switch are shown in Hubitat.)
+* 0.1.27 2021-04-11 Yves Mercier       Added option for secure connection
+* 0.1.28 2021-04-14 Dan Ogorchock      Improved Fan Device handling
+* 0.1.29 2021-04-17 Dan Ogorchock      Added support for Smoke Detector Binary Sensor
+* 0.1.30 2021-08-10 tomw               Added support for device_tracker as Presence Sensor
+* 0.1.31 2021-09-23 tomw               Added support for Power sensor
+* 0.1.33 2021-09-28 tomw               Added support for cover as Garage Door Opener
+* 0.1.34 2021-11-24 Yves Mercier       Added event type: digital or physical (in that case, from Hubitat or from Home Assistant).	
+* 0.1.35 2021-12-01 draperw            Added support for locks
+* 0.1.36 2021-12-14 Yves Mercier       Improved event type
+* 0.1.37 2021-12-26 gabriel_kpk        Added support for Climate domain
+* 0.1.38 2021-12-29                    Improved Climate support, Code cleanup, Minor decription fixes
+* 0.1.39 2022-01-19 BrenenP            Added support for additional sensors
+* 0.1.40 2022-02-23 tomw               Added support for Energy sensor
+* 0.1.41 2022-03-08 Yves Mercier       Validate Fan speed
+* 0.1.42 2022-04-02 tomw               Added support for input_boolean
+* 0.1.43 2022-05-10 tomw               Added support for Curtain device_class
+* 0.1.44 2022-05-15 tomw               Added support for Shade device_class
+* 0.1.46 2022-07-04 tomw               Advanced configuration - manual add/remove of devices; option to disable filtering; unused child cleanup
+* 0.1.47 2022-11-03 mboisson           Added support for Carbon Dioxide, Radon, and Volatile Organic Compounds sensors
+* 0.1.48 2022-11-14 Yves Mercier       Added minimal RGB light support (no CT)
+* 0.1.49 2022-11-16 mboisson           Sensor units and support for "unknown" sensor types
+* 0.1.50 2022-12-06 Yves Mercier       Improved support for lights and added option to ignore unavailable state
+* 0.1.51 2023-01-30 Yves Mercier       Added support for "unknown" binary sensor and timestamp sensor
+* 0.1.53 2023-02-19 Yves Mercier       Fix a typo and refine support for lights (CT)
+* 0.1.54 2023-03-02 Yves Mercier       Added support for light effects
+* 0.1.55 2023-05-27 Yves Mercier       Added support for pm2.5
+* 0.1.56 2023-06-12 Yves Mercier       Modified various sensor units handling
+* 0.1.57 2023-07-18 Yves Mercier       By default map unsuported sensors to unknown
+* 0.1.58 2023-07-27 Yves Mercier       Add support for number entity
+* 0.1.59 2023-08-13 Yves Mercier       Remove unsupported states and change how health status is reported.
+* 0.1.60 2013-12-31 mboisson           Added support for air quality parts
+* 0.1.61 2024-01-02 Yves Mercier       Add alternate RGBW implementation + add handling of unknown state.
+* 0.1.62 2024-01-10 Yves Mercier       Add input_number support
+* 2.0	 2024-01-20 Yves Mercier       Introduce entity subscription model
+* 2.1	 2024-01-30 Yves Mercier       Improve climate support
+* 2.2    2024-02-01 Yves Mercier       Add support for door types, blind types and moisture
+* 2.3    2024-03-26 Yves Mercier       Add call service command and support for buttons
+* 2.4    2024-04-27 Yves Mercier       Add humidity to climate entity
+* 2.5    2024-05-24 Yves Mercier       Add support for valve entity and add supported fan modes for climate entity
+* 2.6    2024-06-11 Yves Mercier       Add support for humidifier entity
+* 2.7    2024-08-15 Yves Mercier       Add support for events, change fan error handling, remap fan percentage to accomodate for missing named speed, forgo thermostat mode translation, add thermostat presets, use device ID instead of device name for service call.
+* 2.8    2024-09-03 Yves Mercier       Fix custom call sevice to allow colons in data, fix thermostat set_preset calls.
+* 2.9    2024-10-29 Yves Mercier       Add windowsShade attribute to blinds, add attributes to unknown sensor, add support for espresense.
+* 2.10   2024-11-24 Yves Mercier       Add support for text and vacuum entities. Add extra blind commands.
+* 2.11   2024-11-30 Yves Mercier       Add limited support for media_player entity.
+* 2.12   2024-12-15 Yves Mercier       Add support for select entity. Clean code. Add item selection by name. Fix button event.
+* 2.13   2024-12-25 Yves Mercier       Fix fan setSpeed.
+* 2.14   2025-01-10 Yves Mercier       Add humidity support to climate entity.
+* 2.15   2025-02-27 Yves Mercier       Separate indexed source list from supported inputs, remove index from lightEffects, refactored event entity to reflect breaking changes
+* 2.16   2025-03-13 ritchierich        Add support for gas detector.
+*                   Yves Mercier       Compensate for restrictions imposed by ezdashboard in mediaPlayer and locks, simplify handling of "off" thermostat mode
+* XXXX   2025-06-06 ritchierich        Refactored code to combine attributes into a single device
 */
 
-definition(
-    name: "Home Assistant Device Bridge",
-    namespace: "tomw",
-    author: "tomw",
-    description: "",
-    category: "Convenience",
-    importUrl: "https://raw.githubusercontent.com/ymerj/HE-HA-control/main/haDeviceBridgeConfiguration.groovy",
-    iconUrl: "",
-    iconX2Url: "",
-    iconX3Url: "")
+import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
 
-preferences
-{
-    page(name: "mainPage")
-    page(name: "discoveryPage")
-    page(name: "advOptionsPage")
-}
+metadata {
+    definition (name: "HomeAssistant Hub Parent", namespace: "ymerj", author: "Yves Mercier") {
+        capability "Initialize"
+        capability "Actuator"
 
-def mainPage()
-{
-    dynamicPage(name: "mainPage", title: "", install: true, uninstall: true)
-    {
-        section("<b>Home Assistant Device Bridge</b>")
-        {
-            input ("ip", "text", title: "Home Assistant IP Address", description: "HomeAssistant IP Address", required: true)
-            input ("port", "text", title: "Home Assistant Port", description: "HomeAssistant Port Number", required: true, defaultValue: "8123")
-            input ("token", "text", title: "Home Assistant Long-Lived Access Token", description: "HomeAssistant Access Token", required: true)
-            input name: "secure", type: "bool", title: "Require secure connection", defaultValue: false, required: true
-            input name: "ignoreSSLIssues", type: "bool", title: "Ignore SSL Issues", defaultValue: false, required: true
-            input name: "enableLogging", type: "bool", title: "Enable debug logging?", defaultValue: false, required: true
-        }
-        section("<b>Configuration options:</b>")
-        {
-            href(page: "discoveryPage", title: "<b>Discover and select devices</b>", description: "Query Home Assistant for all currently configured devices.  Then select which entities to Import to Hubitat.", params: [runDiscovery : true])
-        }
-        section("App Name")
-        {
-            label title: "Optionally assign a custom name for this app", required: false
-        }
+        command "closeConnection"        
+        command "callService", [[name:"entity", type:"STRING", description:"domain.entity"],[name:"service", type:"STRING"],[name:"data", type:"STRING", description:"key:value,key:value... etc"]]
+	    
+        attribute "Connection", "string"
+    }
+
+    preferences {
+        input ("ip", "text", title: "IP", description: "HomeAssistant IP Address", required: true)
+        input ("port", "text", title: "Port", description: "HomeAssistant Port Number", required: true, defaultValue: "8123")
+        input ("token", "text", title: "Token", description: "HomeAssistant Long-Lived Access Token", required: true)
+        input ("secure", "bool", title: "Require secure connection (https)", defaultValue: false)
+        input ("logEnable", "bool", title: "Enable debug logging", defaultValue: true)
+        input ("txtEnable", "bool", title: "Enable description text logging", defaultValue: true)
     }
 }
 
-def linkToMain()
-{
-    section
-    {
-        href(page: "mainPage", title: "<b>Return to previous page</b>", description: "")
+def removeChild(entity){
+    String thisId = device.id
+    def ch = getChildDevice("${thisId}-${entity}")
+    if (ch) {deleteChildDevice("${thisId}-${entity}")}
+}
+
+def logsOff(){
+    log.warn("debug logging disabled...")
+    device.updateSetting("logEnable",[value:"false",type:"bool"])
+}
+
+def updated(){
+    log.info("updated...")
+    log.warn("debug logging is: ${logEnable == true}")
+    log.warn("description logging is: ${txtEnable == true}")
+    unschedule()
+    if (logEnable) runIn(1800,logsOff)
+    initialize()
+}
+
+def initialize() {
+    log.info("initializing...")
+    closeConnection()
+
+    state.id = 2
+    def connectionType = "ws"
+    if (secure) connectionType = "wss"
+    auth = '{"type":"auth","access_token":"' + "${token}" + '"}'
+    def subscriptionsList = device.getDataValue("filterList")
+    if(subscriptionsList == null) return
+    evenements = '{"id":1,"type":"subscribe_trigger","trigger":{"platform":"state","entity_id":"' + subscriptionsList + '"}}'
+    try {
+        interfaces.webSocket.connect("${connectionType}://${ip}:${port}/api/websocket", ignoreSSLIssues: true)
+        interfaces.webSocket.sendMessage("${auth}")
+        interfaces.webSocket.sendMessage("${evenements}")
+    } 
+    catch(e) {
+        log.error("initialize error: ${e.message}")
     }
 }
 
-def discoveryPage(params)
-{
-    dynamicPage(name: "discoveryPage", title: "", install: true, uninstall: true)
-    {
-        if(wasButtonPushed("cleanupUnused"))
-        {
-            cullGrandchildren()
-            clearButtonPushed()
-        }
-        if(params?.runDiscovery)
-        {
-            state.entityList = [:]
-            def domain
-            // query HA to get entity_id list
-            def resp = httpGetExec(genParamsMain("states"))
-            // logDebug("states response = ${resp?.data}")
-            
-            if(resp?.data)
-            {
-                resp.data.each
-                {
-                    domain = it.entity_id?.tokenize(".")?.getAt(0)
-                    if(["fan", "switch", "light", "binary_sensor", "sensor", "device_tracker", "cover", "lock", "climate", "input_boolean", "number", "input_number", "button", "input_button", "valve", "humidifier", "event", "text", "input_text", "vacuum", "media_player", "input_select", "select"].contains(domain))
-                    {
-                        state.entityList.put(it.entity_id, "${it.attributes?.friendly_name} (${it.entity_id})")
-                    }
-                }
+def uninstalled() {
+    log.info("uninstalled...")
+    closeConnection()
+    unschedule()
+    deleteAllChildDevices()
+}
 
-                state.entityList = state.entityList.sort { it.value }
-            }
-        }
-        section
-        {
-            input name: "includeList", type: "enum", title: "Select any devices to <b>include</b> from Home Assistant Device Bridge", options: state.entityList, required: false, multiple: true, offerAll: true
-        }
-        section("Administration option")
-        {
-            input(name: "cleanupUnused", type: "button", title: "Remove all child devices that are not currently selected (use carefully!)")
-        }
-        linkToMain()
+def webSocketStatus(String status){
+    if (logEnable) log.debug("webSocket ${status}")
+    if ((status == "status: closing") && (state.wasExpectedClose)) {
+        state.wasExpectedClose = false
+        sendEvent(name: "Connection", value: "Closed")
+        return
+    } 
+    else if(status == 'status: open') {
+        log.info("websocket is open")
+        // success! reset reconnect delay
+        pauseExecution(1000)
+        state.reconnectDelay = 1
+        state.wasExpectedClose = false
+        sendEvent(name: "Connection", value: "Open")
+    } 
+    else {
+        log.warn("WebSocket error, reconnecting.")
+        sendEvent(name: "Connection", value: "Reconnecting")
+        reconnectWebSocket()
     }
 }
 
-def cullGrandchildren()
-{
-    // remove all child devices that aren't currently on either filtering list
-    
-    def ch = getChild()
-    
-    ch?.getChildDevices()?.each()
-    {
-        def entity = it.getDeviceNetworkId()?.tokenize("-")?.getAt(1)        
-        if(!includeList?.contains(entity)) { ch.removeChild(entity) }
+def reconnectWebSocket() {
+    // first delay is 2 seconds, doubles every time
+    state.reconnectDelay = (state.reconnectDelay ?: 1) * 2
+    // don't let delay get too crazy, max it out at 10 minutes
+    if(state.reconnectDelay > 600) state.reconnectDelay = 600
+    //If the Home Assistant Hub is offline, give it some time before trying to reconnect
+    runIn(state.reconnectDelay, initialize)
+}
+
+def parse(String description) {
+    parent.parse(description)
+}
+
+def closeConnection() {
+    if (logEnable) log.debug("Closing connection...")   
+    state.wasExpectedClose = true
+    interfaces.webSocket.close()
+}
+
+def callService(entity, service, data = "") {
+    def cvData = [:]
+    cvData = data.tokenize(",").collectEntries{it.tokenize(":").with{[(it[0]):it[1..(it.size()-1)].join(":")]}}
+    domain = entity?.tokenize(".")[0]
+    messUpd = [id: state.id, type: "call_service", domain: domain, service: service, service_data : [entity_id: entity] + cvData]
+    state.id = state.id + 1
+    messUpdStr = JsonOutput.toJson(messUpd)
+    executeCommand(messUpdStr)
+}
+
+def executeCommand(messUpdStr) {
+    if (logEnable) log.debug("executeCommand = ${messUpdStr}")
+    interfaces.webSocket.sendMessage(messUpdStr)    
+}
+
+def createChild(deviceType, entity, friendly, namespace = null) {
+    def ch = getChildDevice("${device.id}-${entity}")
+    if (!ch) ch = addChildDevice(namespace ?: "hubitat", deviceType, "${device.id}-${entity}", [name: "${entity}", label: "${friendly}", isComponent: false])
+    return ch
+}
+
+def deleteAllChildDevices() {
+    log.info("Uninstalling all Child Devices")
+    getChildDevices().each {
+          deleteChildDevice(it.deviceNetworkId)
     }
 }
 
-def logDebug(msg)
-{
-    if(enableLogging)
-    {
-        log.debug "${msg}"
-    }
-}
-
-def installed()
-{
-    def ch = getChild()
-    if(!ch)
-    {
-        ch = addChildDevice("ymerj", "HomeAssistant Hub Parent", now().toString(), [name: "Home Assistant Device Bridge", label: "Home Assistant Device Bridge (${ip})", isComponent: false])
-    }
-    
-    if(ch)
-    {
-        // propoagate our settings to the child
-        ch.updateSetting("ip", ip)
-        ch.updateSetting("port", port)
-        ch.updateSetting("token", token)
-        ch.updateSetting("secure", secure)
-        def filterListForChild = includeList?.join(",")
-        filterListForChild -= "Toggle All On/Off"
-        ch.updateDataValue("filterList", filterListForChild)
-        ch.updated()
-    }
-    state.remove("entityList")
-}
-
-def getChild()
-{
-    return getChildDevices()?.getAt(0)
-}
-
-def uninstalled()
-{
-    deleteChildren()
-}
-
-def deleteChildren()
-{
-    getChildDevices()?.each
-    {
-        deleteChildDevice(it.getDeviceNetworkId())
-    }
-}
-
-def updated()
-{
-    installed()
-}
-
-void appButtonHandler(btn)
-{
-    // flag button pushed and let pages sort it out
-    setButtonPushed(btn)
-}
-
-def setButtonPushed(btn)
-{
-    state.button = [btn: btn]
-}
-
-def wasButtonPushed(btn)
-{
-    return state.button?.btn == btn
-}
-
-def clearButtonPushed()
-{
-    state.remove("button")
-}
-
-def genParamsMain(suffix, body = null)
-{
-    def params =
-        [
-            uri: getBaseURI() + suffix,
-            headers:
-            [
-                'Authorization': "Bearer ${token}",
-                'Content-Type': "application/json"
-            ],
-            ignoreSSLIssues: ignoreSSLIssues
-        ]
-    
-    if(body)
-    {
-        params['body'] = body
-    }
- 
-    return params
-}
-
-def getBaseURI()
-{
-    if(secure) return "https://${ip}:${port}/api/"
-    return "http://${ip}:${port}/api/"
-}
-
-def httpGetExec(params, throwToCaller = false)
-{
-    logDebug("httpGetExec(${params})")
-    
-    try
-    {
-        def result
-        httpGet(params)
-        { resp ->
-            if (resp)
-            {
-                //logDebug("resp.data = ${resp.data}")
-                result = resp
-            }
-        }
-        return result
-    }
-    catch (Exception e)
-    {
-        logDebug("httpGetExec() failed: ${e.message}")
-        //logDebug("status = ${e.getResponse().getStatus().toInteger()}")
-        if(throwToCaller)
-        {
-            throw(e)
-        }
-    }
+def componentRefresh(ch) {
+    parent.componentRefresh(ch)
 }
